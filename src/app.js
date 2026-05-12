@@ -8,6 +8,11 @@ app.use(express.json());
 app.post('/shorten', (req, res) => {
   try {
     const { url } = req.body || {};
+
+    if (typeof url !== 'string' || url.trim().length === 0) {
+      return res.status(400).json({ error: 'Invalid URL' });
+    }
+
     const record = shortener.shorten(url);
     const baseUrl = `${req.protocol}://${req.get('host')}`;
     return res.status(201).json({
