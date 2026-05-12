@@ -21,6 +21,13 @@ app.post('/shorten', (req, res) => {
   }
 });
 
+// US-02: redirect to original URL
+app.get('/:code', (req, res) => {
+  const r = shortener.resolve(req.params.code);
+  if (!r) return res.status(404).json({ error: 'Short code not found' });
+  return res.redirect(302, r.longUrl);
+});
+
 app.use((req, res) => res.status(404).json({ error: 'Not found' }));
 
 module.exports = app;
