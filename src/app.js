@@ -26,6 +26,18 @@ app.post('/shorten', (req, res) => {
   }
 });
 
+// US-05: per-code statistics (must not increment hits)
+app.get('/stats/:code', (req, res) => {
+  const r = shortener.stats(req.params.code);
+  if (!r) return res.status(404).json({ error: 'Short code not found' });
+  return res.json({
+    shortCode: req.params.code,
+    longUrl: r.longUrl,
+    hits: r.hits,
+    createdAt: r.createdAt,
+  });
+});
+
 // US-02: redirect to original URL
 app.get('/:code', (req, res) => {
   const r = shortener.resolve(req.params.code);

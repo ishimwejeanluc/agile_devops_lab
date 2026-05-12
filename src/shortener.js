@@ -48,7 +48,14 @@ function shorten(longUrl, customCode = null) {
 }
 
 function resolve(code) {
+  const r = storage.get(code);
+  if (!r) return null;
+  storage.incrementHits(code);
+  return r;
+}
+
+function stats(code) {
   return storage.get(code);
 }
 
-module.exports = { isValidUrl, shorten, resolve };
+module.exports = { isValidUrl, shorten, resolve, stats };
