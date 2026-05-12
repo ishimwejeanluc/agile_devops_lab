@@ -24,3 +24,22 @@ jobs:
       - run: npm test
         env:
           NODE_ENV: test
+
+  build:
+    name: Build verification
+    runs-on: ubuntu-latest
+    needs: test
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20.x'
+          cache: 'npm'
+      - run: npm ci --omit=dev
+      - name: Smoke test /health
+        run: |
+          node src/server.js &
+          PID=$!
+          sleep 2
+          curl --fail http://localhost:3000/health
+          kill $PID
