@@ -64,3 +64,20 @@ describe('GET /stats/:code', () => {
     expect(r.status).toBe(404);
   });
 });
+
+describe('GET /health', () => {
+  test('returns ok and basic metrics', async () => {
+    const r = await request(app).get('/health');
+    expect(r.status).toBe(200);
+    expect(r.body.status).toBe('ok');
+    expect(r.body).toHaveProperty('uptimeSec');
+    expect(r.body).toHaveProperty('totalUrls');
+  });
+
+  test('totalUrls reflects storage state', async () => {
+    await request(app).post('/shorten').send({ url: 'https://a.com' });
+    await request(app).post('/shorten').send({ url: 'https://b.com' });
+    const r = await request(app).get('/health');
+    expect(r.body.totalUrls).toBe(2);
+  });
+});
