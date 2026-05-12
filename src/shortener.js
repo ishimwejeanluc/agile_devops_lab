@@ -10,8 +10,7 @@ function isValidUrl(url) {
 }
 
 function generateUniqueCode() {
-  let code;
-  let attempts = 0;
+  let code, attempts = 0;
   do {
     code = nanoid(CODE_LENGTH);
     if (++attempts > 5) throw new Error('Could not generate a unique short code');

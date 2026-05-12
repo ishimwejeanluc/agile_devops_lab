@@ -1,7 +1,7 @@
 {
   "name": "url-shortener",
-  "version": "0.1.0",
-  "description": "URL Shortener API — Sprint 1 increment (shorten, redirect, validate)",
+  "version": "1.0.0",
+  "description": "URL Shortener API — Sprint 2 increment (custom codes, stats, health, logging)",
   "main": "src/server.js",
   "scripts": {
     "start": "node src/server.js",
@@ -18,10 +18,7 @@
   },
   "jest": {
     "testEnvironment": "node",
-    "collectCoverageFrom": [
-      "src/**/*.js",
-      "!src/server.js"
-    ],
+    "collectCoverageFrom": ["src/**/*.js", "!src/server.js"],
     "coverageThreshold": {
       "global": {
         "statements": 95,
@@ -31,7 +28,5 @@
       }
     }
   },
-  "engines": {
-    "node": ">=18.0.0"
-  }
+  "engines": { "node": ">=18.0.0" }
 }
