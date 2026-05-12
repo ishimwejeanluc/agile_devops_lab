@@ -7,13 +7,13 @@ app.use(express.json());
 // US-01: shorten a URL
 app.post('/shorten', (req, res) => {
   try {
-    const { url } = req.body || {};
+    const { url, customCode } = req.body || {};
 
     if (typeof url !== 'string' || url.trim().length === 0) {
       return res.status(400).json({ error: 'Invalid URL' });
     }
 
-    const record = shortener.shorten(url);
+    const record = shortener.shorten(url, customCode);
     const baseUrl = `${req.protocol}://${req.get('host')}`;
     return res.status(201).json({
       shortCode: record.shortCode,
