@@ -19,14 +19,30 @@ function generateUniqueCode() {
   return code;
 }
 
-function shorten(longUrl) {
+function shorten(longUrl, customCode = null) {
   if (!isValidUrl(longUrl)) {
     const err = new Error('Invalid URL');
     err.statusCode = 400;
     throw err;
   }
 
-  const shortCode = generateUniqueCode();
+  let shortCode;
+  if (customCode) {
+    if (!/^[a-zA-Z0-9_-]{3,20}$/.test(customCode)) {
+      const err = new Error('Custom code must be 3-20 chars (letters, digits, _ or -)');
+      err.statusCode = 400;
+      throw err;
+    }
+    if (storage.exists(customCode)) {
+      const err = new Error('Custom code already in use');
+      err.statusCode = 409;
+      throw err;
+    }
+    shortCode = customCode;
+  } else {
+    shortCode = generateUniqueCode();
+  }
+
   const record = storage.save(shortCode, longUrl);
   return { shortCode, ...record };
 }
