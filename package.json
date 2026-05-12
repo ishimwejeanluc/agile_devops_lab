@@ -17,7 +17,19 @@
     "supertest": "^7.0.0"
   },
   "jest": {
-    "testEnvironment": "node"
+    "testEnvironment": "node",
+    "collectCoverageFrom": [
+      "src/**/*.js",
+      "!src/server.js"
+    ],
+    "coverageThreshold": {
+      "global": {
+        "statements": 95,
+        "branches": 85,
+        "functions": 90,
+        "lines": 95
+      }
+    }
   },
   "engines": {
     "node": ">=18.0.0"
