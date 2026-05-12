@@ -1,5 +1,6 @@
 const express = require('express');
 const shortener = require('./shortener');
+const storage = require('./storage');
 
 const app = express();
 app.use(express.json());
@@ -24,6 +25,16 @@ app.post('/shorten', (req, res) => {
   } catch (err) {
     return res.status(err.statusCode || 500).json({ error: err.message });
   }
+});
+
+// US-06: health endpoint
+app.get('/health', (req, res) => {
+  res.json({
+    status: 'ok',
+    uptimeSec: Math.floor(process.uptime()),
+    timestamp: new Date().toISOString(),
+    totalUrls: storage.size(),
+  });
 });
 
 // US-05: per-code statistics (must not increment hits)
