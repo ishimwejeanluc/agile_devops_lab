@@ -1,5 +1,6 @@
 /**
  * In-memory storage for URL mappings.
+ * Sprint 2: extended with a hit counter for click tracking.
  */
 class Storage {
   constructor() {
@@ -10,6 +11,7 @@ class Storage {
     this.urls.set(code, {
       longUrl,
       createdAt: new Date().toISOString(),
+      hits: 0,
     });
     return this.urls.get(code);
   }
@@ -28,6 +30,12 @@ class Storage {
 
   clear() {
     this.urls.clear();
+  }
+
+  incrementHits(code) {
+    const r = this.urls.get(code);
+    if (r) r.hits += 1;
+    return r;
   }
 }
 
