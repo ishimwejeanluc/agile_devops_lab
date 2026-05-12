@@ -10,9 +10,6 @@ project/
 ├── tests/                                ← Jest + Supertest
 ├── documentation/
 │   └── Agile-DevOps-Capstone-Report.pdf   ← All written deliverables in one PDF
-├── prompts/
-│   ├── sprint-1-prompt.md                 ← Paste into a coding agent for Sprint 1
-│   └── sprint-2-prompt.md                 ← Paste into a coding agent for Sprint 2
 └── README.md
 ```
 
@@ -45,17 +42,7 @@ curl http://localhost:3000/stats/my-link
 curl http://localhost:3000/health
 ```
 
-### Option B — regenerate the code with a coding agent
-
-Open Cursor / Claude Code / Copilot Workspace / aider in an empty folder and
-paste `prompts/sprint-1-prompt.md`. After it finishes, paste
-`prompts/sprint-2-prompt.md` to extend that code into the Sprint 2 increment.
-
-The two prompts are written to be self-contained and explicit about acceptance
-criteria, file layout, CI requirements, and commit order — so a competent
-coding agent can rebuild the project from scratch.
-
-### Option C — read the report
+### Option B — read the report
 
 `documentation/Agile-DevOps-Capstone-Report.pdf` contains the product vision,
 backlog, sprint plans, Definition of Done, sprint reviews, retrospectives,
