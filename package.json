@@ -1,0 +1,25 @@
+{
+  "name": "url-shortener",
+  "version": "0.1.0",
+  "description": "URL Shortener API — Sprint 1 increment (shorten, redirect, validate)",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "test": "jest --coverage --verbose"
+  },
+  "dependencies": {
+    "express": "^4.19.2",
+    "nanoid": "^3.3.7",
+    "valid-url": "^1.0.9"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0",
+    "supertest": "^7.0.0"
+  },
+  "jest": {
+    "testEnvironment": "node"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
