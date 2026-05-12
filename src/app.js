@@ -1,9 +1,24 @@
 const express = require('express');
 const shortener = require('./shortener');
 const storage = require('./storage');
+const logger = require('./logger');
 
 const app = express();
 app.use(express.json());
+
+// US-07: structured request logging middleware
+app.use((req, res, next) => {
+  const start = Date.now();
+  res.on('finish', () => {
+    logger.info('request', {
+      method: req.method,
+      path: req.path,
+      status: res.statusCode,
+      durationMs: Date.now() - start,
+    });
+  });
+  next();
+});
 
 // US-01: shorten a URL
 app.post('/shorten', (req, res) => {
@@ -23,6 +38,7 @@ app.post('/shorten', (req, res) => {
       createdAt: record.createdAt,
     });
   } catch (err) {
+    logger.warn('shorten failed', { error: err.message });
     return res.status(err.statusCode || 500).json({ error: err.message });
   }
 });
